@@ -35,7 +35,6 @@ body {
 }
 
 .display > * {
-    padding: 0 80px;
     border: 1px solid black;
 }
 
@@ -44,6 +43,7 @@ body {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    padding: 0 80px;
 }
 
 .color input {
@@ -63,4 +63,17 @@ body {
 .color input::-moz-color-swatch {
     border-radius: 50%;
     border: 1px solid #000000;
+}
+
+.option-button {
+    cursor: pointer;
+    margin-bottom: 8px;
+    background-color: #0563bb;
+    padding: 2px 8px;
+    color: white;
+    border-radius: 8px;
+}
+
+.active {
+    border: 2px solid black;
 }
