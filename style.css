@@ -65,7 +65,7 @@ body {
     border: 1px solid #000000;
 }
 
-.option-button {
+.button {
     cursor: pointer;
     margin-bottom: 8px;
     background-color: #0563bb;

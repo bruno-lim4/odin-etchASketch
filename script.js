@@ -30,6 +30,7 @@ function updateBoard(rows, cols) {
         div.classList.add('unit');
         // div.style.border = '1px solid black';
         div.style.width = `${(DEFAULT_SIZE)/cols}px`;
+        div.style.opacity = '0';
         div.style.height = `${(DEFAULT_SIZE)/rows}px`;
         board.appendChild(div);
     }
@@ -37,13 +38,48 @@ function updateBoard(rows, cols) {
 
 function paintDiv(e) {
     if (!e.target.classList.contains('unit')) return;
-    e.target.style.background = colorValue;
+
+    if (mode == 0) {
+        e.target.style.opacity = 1;
+        e.target.style.background = colorValue;
+    }
+
+    if (mode == 1) {
+        e.target.style.background = 'black';
+        e.target.style.opacity = Math.min(1, +e.target.style.opacity+0.25);
+    }
+
+    if (mode == 2) { // tá certo
+        e.target.style.opacity = Math.max(0, +e.target.style.opacity-0.25);
+    }
 }
 
 function handleButtons(e) {
     if (e.target.classList.contains('darken')) {
-        mode = 1;
-        e.target.classList.add('active');
+        if (mode == 1) {
+            mode = 0;
+        } else {
+            mode = 1;
+        }
+
+        //dermarca o outro botão
+        lightenMode.classList.remove('active');
+
+        e.target.classList.toggle('active');
+    } else if (e.target.classList.contains('lighten')) {
+        if (mode == 2) {
+            mode = 0;
+        } else {
+            mode = 2;
+        }
+
+        //dermarca o outro botão
+        darkenMode.classList.remove('active');
+
+        e.target.classList.toggle('active');
+    } else if (e.target.classList.contains('clear')) {
+        board.innerHTML = ''
+        updateBoard(size, size);
     }
 }
 
@@ -62,6 +98,12 @@ colorPicker.addEventListener('input', (e) => {
     colorValue = e.target.value;
 })
 
+colorPicker.addEventListener('click', () => {
+    mode = 0;
+    darkenMode.classList.remove('active');
+    lightenMode.classList.remove('active');
+})
+
 sizeRange.addEventListener('input', () => {
     size = +sizeRange.value;
     labelRange.textContent = `${size} x ${size}`
@@ -69,6 +111,6 @@ sizeRange.addEventListener('input', () => {
     updateBoard(size,size);
 })
 
-document.querySelectorAll('.option-button').forEach((btn) => {
+document.querySelectorAll('.button').forEach((btn) => {
     btn.addEventListener('click', handleButtons)
 })
