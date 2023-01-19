@@ -1,4 +1,4 @@
-const DEFAULT_SIZE = 800;
+const DEFAULT_SIZE = 650;
 
 let colorValue, size, mode = 0;
 
@@ -107,7 +107,9 @@ colorPicker.addEventListener('click', () => {
 sizeRange.addEventListener('input', () => {
     size = +sizeRange.value;
     labelRange.textContent = `${size} x ${size}`
+})
 
+sizeRange.addEventListener('change', () => {
     updateBoard(size,size);
 })
 
